@@ -6,36 +6,33 @@ using System.Threading.Tasks;
 
 namespace InfnetAT_FundCSharp
 {
-    class Pessoa
+    class Pessoa : IComparable
     {
-        string Nome { get; set; }
-        string Sobrenome { get; set; }
-        string Data { get; set; }
+        private string nome;
+        private string sobrenome;
+        private DateTime data;
 
-
-        List<Pessoa> pessoas = new List<Pessoa>();
-
-        /*
-        public Pessoa(string nome, string sobrenome, string data)
+        public Pessoa(string nome, string sobrenome, DateTime data)
         {
-            Nome = nome;
-            Sobrenome = sobrenome;
-            Data = data;
-        }*/
-
-        public void nome(string nome)
-        {
-            this.Nome = nome;
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+            this.data = data;
         }
 
-        public void sobrenome(string sobrenome)
+        public string Nome { get => nome; set => nome = value; }
+        public string Sobrenome { get => sobrenome; set => sobrenome = value; }
+        public DateTime Data { get => data; set => data = value; }
+
+
+        public int CompareTo(object obj)
         {
-            this.Sobrenome = sobrenome;
+            Pessoa that = obj as Pessoa;
+            return this.nome.CompareTo(that.nome);
         }
 
-        public void data(string data)
+        public override string ToString()
         {
-            this.Data = data;
+            return $"{nome} {sobrenome}, Aniversário: {data}";
         }
 
     }

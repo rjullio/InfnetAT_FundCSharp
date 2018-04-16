@@ -9,62 +9,51 @@ namespace InfnetAT_FundCSharp
 {
     class Executar 
     {
-        Pessoa pessoa = new Pessoa();
-
+       
+        List<Pessoa> pessoas = new List<Pessoa>();
         
-        int contador = 0;
-        private StreamReader leitor;
-
-        public void parabens()
-        {
-            DateTime agora = DateTime.Now;
-   
-        }
-
-
+        
+        
         public void script()
         {
-            
-            string escolha;
+           
+            string nome, sobrenome, escolha;
+            string consultar;
+            DateTime dataNascimento;
+
+
 
             do
             {
+                Console.WriteLine("Bem vindo(a) ao gerenciador de aniversário:\n");
+                Console.WriteLine("Por favor escolha uma das opções abaixo:\n1 - Inserir Dados\n2 - Consultar\n3 - Sair\n ");
                 
-
                 escolha = Console.ReadLine();
-
-                Console.WriteLine("");
-
                 if (escolha == "1")
                 {
                     Console.WriteLine("Por favor insira os seguintes dados: ");
                     Console.WriteLine("");
                     Console.WriteLine("Nome: ");
-                    pessoa.nome = Console.ReadLine();
+                    nome = Console.ReadLine();
                     Console.WriteLine("Sobrenome: ");
-                    c.Sobrenome = " " + Console.ReadLine();
+                    sobrenome= Console.ReadLine();
                     Console.WriteLine("Data de Nascimento: ");
-                    c.Data =  DateTime.Parse( Console.ReadLine());
-
+                    dataNascimento = DateTime.Parse(Console.ReadLine());
 
                     Console.WriteLine(" ");
-                    Console.WriteLine("Os dados estão corretos?\n" + c.Nome + c.Sobrenome + c.Data + "\n\n1 - Sim\n2 - Não\n");
+                    Console.WriteLine("Os dados estão corretos?\n" + nome +" " + sobrenome +" "+ dataNascimento + "\n\n1 - Sim\n2 - Não\n");
 
                     escolha = Console.ReadLine();
 
                     if(escolha == "1")
                     {
-                        vetor_clientes[contador] = c;
-                        
-                        if(contador < vetor_clientes.Length)
-                        {
-                            contador++;
-                        }
+                        Pessoa pessoa = new Pessoa(nome, sobrenome, dataNascimento);
 
-                        else
-                        {
-                            Console.WriteLine("O gerenciador está cheio");
-                        }
+                        pessoas.Add(pessoa); //adiciona
+                        Console.WriteLine("\nEssas são as pessoas cadastradas");
+                        pessoas.Sort();      //organiza as pessoas cadastradas
+                        Imprimir(pessoas);
+                        Console.WriteLine("");
 
                     }
                     else
@@ -75,14 +64,44 @@ namespace InfnetAT_FundCSharp
                 }
                 else if (escolha == "2")
                 {
+                    
+                    Console.WriteLine("Deseja consultar algum nome de pessoas cadastradas?"  );
+                    consultar = Console.ReadLine();
 
+                    if(consultar == "1")
+                    {
+                        Console.WriteLine("Por favor, digite o primeiro nome da pessoa: ");
+                        nome = Console.ReadLine();
+
+                        //Console.WriteLine("Essas são as pessoas que tem "+nome+" em seus nomes: " + pessoas.First(pessoa => pessoa.Contains(nome)));
+
+                    }
+
+                }
+                else
+                {
+                    break;
                 }
 
             } while (escolha != "3");
 
             Console.ReadLine();
+
         }
 
+        private void Imprimir(List<Pessoa> pessoas)
+        {
+            foreach(var pessoa in pessoas)
+            {
+                Console.WriteLine(pessoa);
+            }
+
+
+        }
+
+        
+
+        /*
         void gravar()
         {
             string gravacao = @"C:\Gerenciador";
@@ -99,16 +118,8 @@ namespace InfnetAT_FundCSharp
             }
 
         }
-
-        void consulta(Cliente consultar)
-        {
-            for (int i = 0; i < vetor_clientes.Length; i++)
-            {
-                   
-            }
-
-        }
-
+        */
        
+
     }
 }
