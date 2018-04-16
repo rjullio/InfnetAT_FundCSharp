@@ -32,7 +32,7 @@ namespace InfnetAT_FundCSharp
 
         public override string ToString()
         {
-            return $"{nome} {sobrenome}, Aniversário: {data}";
+            return $"{nome} {sobrenome}, Aniversário: {data.ToString("m")}";
         }
 
     }

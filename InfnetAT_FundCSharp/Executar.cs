@@ -11,9 +11,8 @@ namespace InfnetAT_FundCSharp
     {
        
         List<Pessoa> pessoas = new List<Pessoa>();
-        
-        
-        
+        private string ficheiro;
+
         public void script()
         {
            
@@ -41,7 +40,7 @@ namespace InfnetAT_FundCSharp
                     dataNascimento = DateTime.Parse(Console.ReadLine());
 
                     Console.WriteLine(" ");
-                    Console.WriteLine("Os dados estão corretos?\n" + nome +" " + sobrenome +" "+ dataNascimento + "\n\n1 - Sim\n2 - Não\n");
+                    Console.WriteLine("Os dados estão corretos?\n" + nome +" " + sobrenome +" "+ dataNascimento.ToString("m") + "\n\n1 - Sim\n2 - Não\n");
 
                     escolha = Console.ReadLine();
 
@@ -50,7 +49,7 @@ namespace InfnetAT_FundCSharp
                         Pessoa pessoa = new Pessoa(nome, sobrenome, dataNascimento);
 
                         pessoas.Add(pessoa); //adiciona
-                        Console.WriteLine("\nEssas são as pessoas cadastradas");
+                        Console.WriteLine("\nEssas são as pessoas cadastradas\n");
                         pessoas.Sort();      //organiza as pessoas cadastradas
                         Imprimir(pessoas);
                         Console.WriteLine("");
@@ -63,23 +62,14 @@ namespace InfnetAT_FundCSharp
 
                 }
                 else if (escolha == "2")
-                {
-                    
-                    Console.WriteLine("Deseja consultar algum nome de pessoas cadastradas?"  );
-                    consultar = Console.ReadLine();
-
-                    if(consultar == "1")
-                    {
-                        Console.WriteLine("Por favor, digite o primeiro nome da pessoa: ");
-                        nome = Console.ReadLine();
-
-                        //Console.WriteLine("Essas são as pessoas que tem "+nome+" em seus nomes: " + pessoas.First(pessoa => pessoa.Contains(nome)));
-
-                    }
-
+                {                    
+                    Console.WriteLine("Digite o nome da pessoa a ser procurado"  );
+                    nome = Console.ReadLine();                    
+                    Consultar(nome);                    
                 }
                 else
                 {
+                    Gravar(pessoas);
                     break;
                 }
 
@@ -88,6 +78,38 @@ namespace InfnetAT_FundCSharp
             Console.ReadLine();
 
         }
+
+        private void Gravar(List<Pessoa> pessoas)
+        {
+            string ficheiro = @"c:\\temp\\pessoaani.txt";
+
+            if (File.Exists(ficheiro) == true) // verifica se o ficheiro existe
+            {
+                StreamReader sr;
+                sr = File.OpenText(ficheiro);// abre o ficheiro para leitura
+                string[] campos = new string[3];
+                string linha = "";
+                campos = linha.Split(';');
+                if (DateTime.Parse(campos[2]).Day == DateTime.Now.Day && DateTime.Parse(campos[2]).Month == DateTime.Now.Month)
+                {
+                    Console.WriteLine("{0}\t\t{1}\t\t{2}", campos[0], campos[1], campos[2]);
+                }
+                else
+                {
+                    Console.WriteLine("não existe aniversario a exibir");
+                }
+                sr.Close();
+            }
+        }
+       
+
+        private void Consultar(String nome)
+        {            
+            Console.WriteLine("Pessoas de nome: " + nome + 
+                " cadastradas: " + pessoas.First(pessoa => nome.Contains(nome)));
+        }
+        
+
 
         private void Imprimir(List<Pessoa> pessoas)
         {
@@ -99,6 +121,10 @@ namespace InfnetAT_FundCSharp
 
         }
 
+        private void CalcularAniverario(DateTime data)
+        {
+
+        }
         
 
         /*
